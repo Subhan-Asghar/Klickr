@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     );
 
     
-    const res = NextResponse.json({ success: true, userId: newUser.id });
+    const res = NextResponse.json({ success: true,});
     res.cookies.set("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
