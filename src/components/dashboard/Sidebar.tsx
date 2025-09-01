@@ -9,9 +9,8 @@ import {
   
   export function AppSidebar() {
     return (
-      <Sidebar>
+      <Sidebar collapsible="icon" variant="floating">
         <SidebarHeader >
-            Subhan Asghar 
         </SidebarHeader >
         <SidebarContent>
           <SidebarGroup />

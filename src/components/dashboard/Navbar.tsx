@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react"
 import { Moon, Sun, User, LogOut, CreditCard } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -29,8 +30,12 @@ const Navbar = () => {
   }
 
   return (
-    <div className="h-14 bg-background border-b flex justify-between items-center px-4 shadow-sm">
-     <SidebarTrigger />
+    <div className="h-14 bg-background rounded-lg mt-2 border flex justify-between items-center px-4 shadow-lg">
+      <div className="flex items-center">
+      <SidebarTrigger />
+      <p className="font-semibold p-2 ">Klickr</p>
+      </div>
+    
       <div className="flex items-center gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

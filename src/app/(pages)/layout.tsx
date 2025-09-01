@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Klickr",
   description: "Dashboard",
 }
 
@@ -31,6 +31,7 @@ export default async function DashboardLayout({
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <SidebarProvider defaultOpen={defaultOpen}>
         <AppSidebar />
+        
         <main className="flex-1">{children}</main>
       </SidebarProvider>
     </div>

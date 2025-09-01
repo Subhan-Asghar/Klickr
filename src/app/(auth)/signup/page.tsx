@@ -31,7 +31,11 @@ const Signup = () => {
       email,
       password,
     }
-
+    if(password.length<8)
+    {
+      toast.error("Password must contain at least 8 letters")
+      return
+    }
     try {
       setDisable(true)
       await axios.post("/api/auth/signup", data).
