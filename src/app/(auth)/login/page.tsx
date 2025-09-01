@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import {
   Card,
   CardContent,
@@ -41,6 +42,7 @@ const Login = () => {
   }
 
   return (
+    <>
     <div className="flex h-screen justify-center items-center">
       <Card className="w-full max-w-sm">
         <CardHeader>
@@ -80,7 +82,7 @@ const Login = () => {
           </CardContent>
 
           <CardFooter className="flex flex-col gap-4">
-            <Button disabled={disable} type="submit" className={"w-full mt-4 cursor-pointer"}>
+            <Button disabled={disable} type="submit" className={cn("w-full", "mt-4", disable? "cursor-not-allowed":"cursor-pointer" )}>
               Log in
             </Button>
             <p className="text-sm text-muted-foreground text-center">
@@ -96,6 +98,7 @@ const Login = () => {
         </form>
       </Card>
     </div>
+    </>
   )
 }
 
