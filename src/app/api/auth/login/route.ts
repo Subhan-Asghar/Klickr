@@ -40,7 +40,6 @@ export async function POST(req: NextRequest) {
 
     const res = NextResponse.json({
       success: true,
-      userId: dbUser.id,
     });
 
     res.cookies.set("jwt", token, {
@@ -54,8 +53,24 @@ export async function POST(req: NextRequest) {
     return res;
   } catch (err) {
     return NextResponse.json(
-      { error: "Internal Server Error", details: String(err) },
+      { message: "Internal Server Error", details: String(err) },
       { status: 500 }
     );
   }
+}
+
+export async function DELETE(req:NextRequest){
+  try{
+    const res=NextResponse.json({message:"User Logout"})
+    res.cookies.set("jwt","",{
+      httpOnly:true,
+      maxAge:0,
+      path:"/"
+    })
+  
+    return res
+  }catch{
+    return NextResponse.json({message:"Internal Server Error"})
+  }
+
 }

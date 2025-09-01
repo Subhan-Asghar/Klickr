@@ -95,7 +95,7 @@ const Signup = () => {
 
           <CardFooter className="flex flex-col gap-4">
             <Button disabled={disable} type="submit" className={`w-full mt-4 ${disable? "cursor-not-allowed" : "cursor-pointer"}`}>
-              Sign Up
+              Create Account
             </Button>
             <p className="text-sm text-muted-foreground text-center">
               Already have an account?{" "}

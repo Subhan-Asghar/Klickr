@@ -10,9 +10,23 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-
+import { useRouter } from "next/navigation"
+import axios from "axios"
+import { toast } from "sonner"
 const Navbar = () => {
+  const router=useRouter()
   const { setTheme } = useTheme()
+  
+  const Logout=async()=>{
+    try{
+      await axios.delete("/api/auth/login")
+      router.push("/login")
+    }catch{
+      toast.error("Something went wrong")
+    }
+    
+
+  }
 
   return (
     <div className="h-14 bg-background border-b flex justify-between items-center px-4 shadow-sm">
@@ -48,7 +62,7 @@ const Navbar = () => {
               <CreditCard className="mr-2 h-4 w-4" /> Billing
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">
+            <DropdownMenuItem variant="destructive" onClick={Logout}>
               <LogOut className="mr-2 h-4 w-4" /> Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
