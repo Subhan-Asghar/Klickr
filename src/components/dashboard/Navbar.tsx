@@ -2,6 +2,7 @@ import * as React from "react"
 import { Moon, Sun, User, LogOut, CreditCard } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import  {SidebarTrigger } from "@/components/ui/sidebar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,8 +16,7 @@ const Navbar = () => {
 
   return (
     <div className="h-14 bg-background border-b flex justify-between items-center px-4 shadow-sm">
-      
-
+     <SidebarTrigger />
       <div className="flex items-center gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
