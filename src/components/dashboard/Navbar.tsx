@@ -1,7 +1,6 @@
 "use client"
 import * as React from "react"
-import { Moon, Sun, User, LogOut, CreditCard } from "lucide-react"
-import { useTheme } from "next-themes"
+import { User, LogOut, CreditCard } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import  {SidebarTrigger } from "@/components/ui/sidebar"
 import {
@@ -14,9 +13,10 @@ import {
 import { useRouter } from "next/navigation"
 import axios from "axios"
 import { toast } from "sonner"
+import ThemeButton from "../ui/theme-toggle"
 const Navbar = () => {
   const router=useRouter()
-  const { setTheme } = useTheme()
+  
   
   const Logout=async()=>{
     try{
@@ -37,21 +37,7 @@ const Navbar = () => {
       </div>
     
       <div className="flex items-center gap-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' size="icon">
-              <Sun className="h-[1.2rem] w-[1.2rem] transition-all dark:hidden" />
-              <Moon className="h-[1.2rem] w-[1.2rem] hidden dark:block" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
+        <ThemeButton/>
         {/* User Menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
