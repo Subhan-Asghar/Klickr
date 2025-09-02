@@ -11,8 +11,33 @@ import {
     SidebarMenuItem,
   } from "@/components/ui/sidebar"
   import { Button } from "../ui/button";
-  import { MousePointerClick ,Plus,LayoutDashboard, Cable, FolderKanban, Link2  } from 'lucide-react';
+  import { MousePointerClick ,Plus,LayoutDashboard, Link2  } from 'lucide-react';
+  import { LinkDialog } from "./Link-Dialog";
+  import { toast } from "sonner";
+  import axios from "axios";
   export function AppSidebar() {
+    const submit=async(title:string,link:string)=>{
+     const data={
+      title:title,
+      redirect:link
+     }
+     try{
+      const res=axios.post("/api/link", data)
+      toast.promise(res
+       ,
+       {
+         loading: "Creating link...",
+         success: "Link created successfully!",
+         error: "Failed to create link. Please try again.",
+       }
+     );
+     await res
+     }
+     catch(err){
+      console.log(err)
+     }
+    
+    }
     return (
       <Sidebar collapsible="icon" variant="floating">
           <SidebarHeader >
@@ -41,10 +66,17 @@ import {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton className="flex items-center gap-2">
+                <LinkDialog
+                trigger={<SidebarMenuButton className="flex items-center gap-2">
                   <Plus className="size-4" />
                   <span>Create Link</span>
-                </SidebarMenuButton>
+                </SidebarMenuButton>}
+                button_text={"Create"}
+                description="Create a new link that you can modify later"
+                Dialog_title="Create Link"
+                submit={submit}
+                />
+                
               </SidebarMenuItem>
           </SidebarMenu>
           </SidebarGroupContent>

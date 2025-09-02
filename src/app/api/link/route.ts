@@ -13,7 +13,7 @@ export async function POST(req:NextRequest){
             user_id:id
         })
         return NextResponse.json({
-            message:"Link Added",
+            message:"Link created successfully!",
             success:true
         })
 
