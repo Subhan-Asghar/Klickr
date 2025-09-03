@@ -7,14 +7,15 @@ export async function POST(req:NextRequest){
     try{
         const id=Number(req.headers.get("user-id"))
         const {title,redirect}=await req.json()
-        await db.insert(link).values({
+        const [result]=await db.insert(link).values({
             title:title,
             redirect:redirect,
             user_id:id
-        })
+        }).returning({id:link.id})
         return NextResponse.json({
             message:"Link created successfully!",
-            success:true
+            success:true,
+            link:process.env.NEXT_PUBLIC_APP_URL+`api/v/${result.id}`
         })
 
     }

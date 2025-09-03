@@ -12,12 +12,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
+import { toast } from "sonner"
 type Props={
     Dialog_title:string,
     description:string,
     button_text:string,
     trigger: React.ReactNode,
-    submit:(title:string,link:string)=>Promise<void>,
+    submit:(title:string,link:string)=>Promise<string|void>,
     default_value?:{
         title:string,
         link:string
@@ -29,39 +30,69 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const [title,setTitle]=useState<string>("")
     const [link,setLink]=useState<string>("")
     const [open,setOpen]=useState<boolean>(false)
+    const [url,setUrl]=useState<string>("")
 
     const handleSubmit =async(e: React.FormEvent)=>{
         e.preventDefault() 
-        await submit(title,link)
-        setOpen(false)
+        const result=await submit(title,link)
+        setUrl(result?? "")
+        
+    }
+    const copyToClipboard = async () => {
+      if (url) {
+        await navigator.clipboard.writeText(url)
+        toast.success("Link Copied")
+      }
     }
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <form>
+      <Dialog open={open} onOpenChange={(isOpen) => {
+        setOpen(isOpen)
+        if (!isOpen) setUrl("")}}>
+        
           <DialogTrigger asChild>
            {trigger}
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
-            <form onSubmit={handleSubmit} className="space-y-4">
+          {url ? (
+        
+          <div className="space-y-4">
+            <DialogHeader>
+              <DialogTitle>URL </DialogTitle>
+              <DialogDescription>Your short link is ready </DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center gap-2">
+              <Input value={url} readOnly />
+              <Button onClick={copyToClipboard}>Copy</Button>
+            </div>
+          </div>
+        ) : (
+        
+          <form onSubmit={handleSubmit} className="space-y-4">
             <DialogHeader>
               <DialogTitle>{Dialog_title}</DialogTitle>
-              <DialogDescription>
-              {description}
-              </DialogDescription>
+              <DialogDescription>{description}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="title">Title:</Label>
-                <Input id="title" name="title" placeholder="Title" defaultValue={default_value?.title}
-                onChange={(e)=>setTitle(e.target.value)}
-                required
+                <Input
+                  id="title"
+                  name="title"
+                  placeholder="Title"
+                  defaultValue={default_value?.title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
                 />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="redirect">Redirect:</Label>
-                <Input id="redirect" name="redirect" placeholder="https://www.example.com/" defaultValue={default_value?.link} 
-                onChange={(e)=>setLink(e.target.value)}
-                required
+                <Input
+                  id="redirect"
+                  name="redirect"
+                  placeholder="https://www.example.com/"
+                  defaultValue={default_value?.link}
+                  onChange={(e) => setLink(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -71,9 +102,9 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
               </DialogClose>
               <Button type="submit">{button_text}</Button>
             </DialogFooter>
-            </form>
-          </DialogContent>
-        </form>
-      </Dialog>
+          </form>
+        )}
+      </DialogContent>
+    </Dialog>
     )
   }

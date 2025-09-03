@@ -15,15 +15,15 @@ import {
   import { LinkDialog } from "./Link-Dialog";
   import { toast } from "sonner";
   import axios from "axios";
-  import Link from "next/link";
   import { useRouter } from "next/navigation";
   import { useMutation } from "@tanstack/react-query";
   export function AppSidebar() {
     const router=useRouter()
 
-    const {mutateAsync:CreateLink}=useMutation({
-      mutationFn:({ title, redirect }: { title: string, redirect: string }) => {  
-      return axios.post("/api/link", { title, redirect})
+    const {mutateAsync:CreateLink,data:ReturnLink}=useMutation({
+      mutationFn:async({ title, redirect }: { title: string, redirect: string }) => {  
+      const res=await axios.post("/api/link", { title, redirect})
+      return res.data
       }
       
     })
@@ -36,11 +36,12 @@ import {
       }
       const res=CreateLink(data)
       toast.promise(res, {
-        loading: "Creating the link",
-        success: "Link is Created",
+        loading: "Creating the link...",
+        success: "Linink created!",
         error: "Failed to create link"
       })
-     await res
+     const result=await res
+     return result.link
      }
     
 
@@ -48,7 +49,7 @@ import {
     return (
       <Sidebar collapsible="icon" variant="floating">
           <SidebarHeader >
-        <Button variant={"outline"}>
+        <Button variant={"outline"} onClick={()=>router.push("/")}>
         <MousePointerClick className="size-5"/>
           <span className=" font-semibold group-data-[collapsible=icon]:hidden">
             Klickr
