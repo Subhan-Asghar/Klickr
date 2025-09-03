@@ -1,14 +1,12 @@
 "use client"
 import React from 'react'
-const Dashboard = () => {
+
+const Link = () => {
   return (
-    <>
-  
     <div className='h-[90vh] flex bg-background mt-1 p-2  rounded-lg border shadow-lg overflow-y-auto'>
-      Dashboard
-    </div>
-    </>
+      Link page
+  </div>
   )
 }
 
-export default Dashboard
+export default Link

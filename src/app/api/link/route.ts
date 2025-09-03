@@ -44,3 +44,23 @@ export async function GET(req:NextRequest){
     }
    
 }
+
+export async function DELETE(req:NextRequest){
+    try{
+        const {id}=await req.json()
+        await db.delete(link).where(eq(link.id,id))
+    
+        return NextResponse.json({
+            message:"Link Deleted",
+            success:true
+        })
+    }
+    catch{
+        
+            return NextResponse.json({
+                message:"Internal Server Error",
+                success:false
+            })
+    }
+   
+}

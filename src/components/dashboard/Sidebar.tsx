@@ -15,9 +15,11 @@ import {
   import { LinkDialog } from "./Link-Dialog";
   import { toast } from "sonner";
   import axios from "axios";
+  import Link from "next/link";
+  import { useRouter } from "next/navigation";
   import { useMutation } from "@tanstack/react-query";
   export function AppSidebar() {
-   
+    const router=useRouter()
 
     const {mutateAsync:CreateLink}=useMutation({
       mutationFn:({ title, redirect }: { title: string, redirect: string }) => {  
@@ -59,16 +61,23 @@ import {
           <SidebarGroupContent>
           <SidebarMenu>
           <SidebarMenuItem>
-                <SidebarMenuButton className="flex items-center gap-2">
+                <SidebarMenuButton className="flex items-center gap-2 "
+                onClick={()=>router.push("/dashboard")}
+                >
                   <LayoutDashboard className="size-4" />
                   <span>Dashboard</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton className="flex items-center gap-2">
+                
+                <SidebarMenuButton className="flex items-center gap-2"
+                onClick={()=>router.push("/links")}
+                >
                   <Link2 className="size-4" />
                   <span>Links</span>
                 </SidebarMenuButton>
+    
+               
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <LinkDialog
