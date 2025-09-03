@@ -29,7 +29,9 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const [title,setTitle]=useState<string>("")
     const [link,setLink]=useState<string>("")
     const [open,setOpen]=useState<boolean>(false)
-    const ButtonSubmit=async()=>{
+
+    const handleSubmit =async(e: React.FormEvent)=>{
+        e.preventDefault() 
         await submit(title,link)
         setOpen(false)
     }
@@ -40,6 +42,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
            {trigger}
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
+            <form onSubmit={handleSubmit} className="space-y-4">
             <DialogHeader>
               <DialogTitle>{Dialog_title}</DialogTitle>
               <DialogDescription>
@@ -51,12 +54,14 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
                 <Label htmlFor="title">Title:</Label>
                 <Input id="title" name="title" placeholder="Title" defaultValue={default_value?.title}
                 onChange={(e)=>setTitle(e.target.value)}
+                required
                 />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="redirect">Redirect:</Label>
                 <Input id="redirect" name="redirect" placeholder="https://www.example.com/" defaultValue={default_value?.link} 
                 onChange={(e)=>setLink(e.target.value)}
+                required
                 />
               </div>
             </div>
@@ -64,8 +69,9 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DialogClose>
-              <Button onClick={ButtonSubmit} type="submit">{button_text}</Button>
+              <Button type="submit">{button_text}</Button>
             </DialogFooter>
+            </form>
           </DialogContent>
         </form>
       </Dialog>

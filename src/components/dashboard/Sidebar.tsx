@@ -15,29 +15,34 @@ import {
   import { LinkDialog } from "./Link-Dialog";
   import { toast } from "sonner";
   import axios from "axios";
+  import { useMutation } from "@tanstack/react-query";
   export function AppSidebar() {
+   
+
+    const {mutateAsync:CreateLink}=useMutation({
+      mutationFn:({ title, redirect }: { title: string, redirect: string }) => {  
+      return axios.post("/api/link", { title, redirect})
+      }
+      
+    })
+
+     
     const submit=async(title:string,link:string)=>{
-     const data={
-      title:title,
-      redirect:link
-     }
-     try{
-      const res=axios.post("/api/link", data)
-      toast.promise(res
-       ,
-       {
-         loading: "Creating link...",
-         success: "Link created successfully!",
-         error: "Failed to create link. Please try again.",
-       }
-     );
+      const data={
+       title:title,
+       redirect:link
+      }
+      const res=CreateLink(data)
+      toast.promise(res, {
+        loading: "Creating the link",
+        success: "Link is Created",
+        error: "Failed to create link"
+      })
      await res
      }
-     catch(err){
-      console.log(err)
-     }
     
-    }
+
+   
     return (
       <Sidebar collapsible="icon" variant="floating">
           <SidebarHeader >
