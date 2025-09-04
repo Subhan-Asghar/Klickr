@@ -30,12 +30,19 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const [title,setTitle]=useState<string>("")
     const [link,setLink]=useState<string>("")
     const [open,setOpen]=useState<boolean>(false)
+    const [urlopen,setUrlOpen]=useState<boolean>(false)
     const [url,setUrl]=useState<string>("")
 
     const handleSubmit =async(e: React.FormEvent)=>{
         e.preventDefault() 
         const result=await submit(title,link)
-        setUrl(result?? "")
+        if(result){
+          setOpen(false)
+          setUrl(result?? "")
+          setUrlOpen(true)
+        
+        }
+     
         
     }
     const copyToClipboard = async () => {
@@ -45,28 +52,13 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
       }
     }
     return (
-      <Dialog open={open} onOpenChange={(isOpen) => {
-        setOpen(isOpen)
-        if (!isOpen) setUrl("")}}>
+    <>
+    <Dialog open={open}  onOpenChange={setOpen}>
         
           <DialogTrigger asChild>
            {trigger}
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
-          {url ? (
-        
-          <div className="space-y-4">
-            <DialogHeader>
-              <DialogTitle>URL </DialogTitle>
-              <DialogDescription>Your short link is ready </DialogDescription>
-            </DialogHeader>
-            <div className="flex items-center gap-2">
-              <Input value={url} readOnly />
-              <Button onClick={copyToClipboard}>Copy</Button>
-            </div>
-          </div>
-        ) : (
-        
           <form onSubmit={handleSubmit} className="space-y-4">
             <DialogHeader>
               <DialogTitle>{Dialog_title}</DialogTitle>
@@ -103,8 +95,28 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
               <Button type="submit">{button_text}</Button>
             </DialogFooter>
           </form>
-        )}
+        
       </DialogContent>
     </Dialog>
+
+    {url && (
+      <Dialog open={urlopen} onOpenChange={setUrlOpen}>
+
+      <DialogContent className="sm:max-w-[425px] ">
+      <div className="space-y-4">
+            <DialogHeader>
+              <DialogTitle>URL </DialogTitle>
+              <DialogDescription>Your short link is ready </DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center gap-2">
+              <Input value={url} readOnly />
+              <Button onClick={copyToClipboard}>Copy</Button>
+            </div>
+          </div>
+      </DialogContent>
+      </Dialog>
+    )}
+    </>
+      
     )
   }

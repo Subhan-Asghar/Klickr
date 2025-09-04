@@ -20,7 +20,7 @@ import {
   export function AppSidebar() {
     const router=useRouter()
 
-    const {mutateAsync:CreateLink,data:ReturnLink}=useMutation({
+    const {mutateAsync:CreateLink}=useMutation({
       mutationFn:async({ title, redirect }: { title: string, redirect: string }) => {  
       const res=await axios.post("/api/link", { title, redirect})
       return res.data
