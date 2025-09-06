@@ -1,9 +1,10 @@
 import { NextResponse,NextRequest } from "next/server";
 import { db } from "@/db/db";
-import {link} from "@/db/schema"
+import {link,click} from "@/db/schema"
 import { eq } from "drizzle-orm";
+import axios from "axios";
 export async function GET(
-    request: NextRequest,
+    req: NextRequest,
     { params }: { params: Promise<{ id: string }> }) 
     {
     const {id}= await params
@@ -15,13 +16,29 @@ export async function GET(
   if (result.length === 0) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
+    
+  // GEt the ip address
+  const ip =
+  req.headers.get("x-vercel-forwarded-for") || 
+  req.headers.get("x-forwarded-for")?.split(",")[0] ||
+  "Unknown";
 
-  let url = result[0].redirect;
+  // Fetch details
+  const res=await axios.get(`http://ip-api.com/json/${ip}`)
+  const data=res.data
 
-    if (!/^https?:\/\//i.test(url)) {
-    url = "https://" + url;
+  // Database insert
+  if(ip!="unknown" && ip!="::1"){
+    await db.insert(click).values({
+      link_id:id,
+      ip:ip,
+      country:data.country,
+      lat:data.lat,
+      lon:data.lon
+    })
+  
   }
 
-  console.log("Redirecting to:", url);
+  const url = result[0].redirect;
   return NextResponse.redirect(url);
 }
