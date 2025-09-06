@@ -1,6 +1,7 @@
 import {pgTable,serial,timestamp, text, integer} from "drizzle-orm/pg-core"
 import { customAlphabet} from "nanoid"
 const nanoid=customAlphabet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",8)
+
 export const user=pgTable("user",{
     id:serial("id").primaryKey(),
     name:text("name").notNull(),
@@ -18,4 +19,14 @@ export const link=pgTable("link",{
     created_at:timestamp("created_at").defaultNow().notNull(),
     updated_at:timestamp("updated_at").defaultNow().notNull(),
 
+})
+
+export const click=pgTable("click",{
+    id:serial("id").primaryKey().notNull(),
+    link_id:text("link_id").notNull().references(()=>link.id),
+    ip:text("ip").notNull(),
+    country:text("country").notNull(),
+    lat:text("lat").notNull(),
+    lon:text("lon").notNull(),
+    time:timestamp("time").defaultNow().notNull()
 })

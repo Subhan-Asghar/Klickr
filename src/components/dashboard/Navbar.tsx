@@ -38,7 +38,6 @@ const Navbar = () => {
     
       <div className="flex items-center gap-2">
         <ThemeButton/>
-        {/* User Menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">

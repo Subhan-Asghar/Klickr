@@ -24,21 +24,29 @@ const ListLink = () => {
   }
   console.log(list)
   return (
-<ScrollArea className="h-[400px] rounded-md border p-2">
-  <div className="flex flex-col">
-    {list.map((item, idx) => (
-      <div key={idx}>
-        <div
-          onClick={() => console.log(item.redirect)}
-          className="flex items-center justify-between px-4 py-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-        >
-          <span className="font-medium">{item.title}</span>
-        </div>
-        {idx < list.length - 1 && <Separator className="my-2" />}
+    <div className="h-[80vh] border shadow-sm bg-background mt-2 flex-1">
+  
+    <div className="p-2 border-b">
+      <h2 className="text-xl pl-6 font-semibold tracking-tight">My Links</h2>
+    </div>
+
+    {/* Scrollable List */}
+    <ScrollArea className="h-[calc(80vh-4rem)] p-2">
+      <div className="flex flex-col">
+        {list?.map((item, idx) => (
+          <div key={idx}>
+            <div
+              onClick={() => console.log(item.redirect)}
+              className="flex items-center justify-between px-4 py-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              <span className="font-medium">{item.title}</span>
+            </div>
+            {idx < list.length - 1 && <Separator className="my-2" />}
+          </div>
+        ))}
       </div>
-    ))}
+    </ScrollArea>
   </div>
-</ScrollArea>
   );
 };
 
