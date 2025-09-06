@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { toast } from "sonner"
+import { useLinkList } from "@/hooks/useLinkList"
+
 type Props={
     Dialog_title:string,
     description:string,
@@ -32,7 +34,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const [open,setOpen]=useState<boolean>(false)
     const [urlopen,setUrlOpen]=useState<boolean>(false)
     const [url,setUrl]=useState<string>("")
-
+    const {refetch}=useLinkList()
     const handleSubmit =async(e: React.FormEvent)=>{
         e.preventDefault() 
         const result=await submit(title,link)
@@ -42,8 +44,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
           setUrlOpen(true)
         
         }
-     
-        
+        refetch()
     }
     const copyToClipboard = async () => {
       if (url) {
