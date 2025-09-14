@@ -1,44 +1,89 @@
 import React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { useLinkList } from "@/hooks/useLinkList";
+import { Trash2, ExternalLink ,  Pencil,EllipsisVertical} from "lucide-react"
 import { useFetch } from "@/hooks/useFetch";
+import { Badge } from "@/components/ui/badge"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 const ListLink = () => {
   const { data: list } = useLinkList();
   const {setId,refetch}=useFetch()
-  return (
-    <div className="h-[90vh] w-64 border rounded-lg bg-card flex flex-col overflow-hidden">
-      {/* Header */}
-      <div className="p-4 border-b bg-muted/30">
-        <h2 className="text-lg font-semibold tracking-tight text-center">
-          Links
-        </h2>
-      </div>
 
-      {/* Scrollable List */}
-      <ScrollArea className="flex-1 p-2 h-[calc(90vh-4rem)]">
-        <div className="flex flex-col gap-1">
-          {list?.map((item, idx) => (
-            <div key={idx}>
-              <div
-                onClick={async() => {setId(item.id)
-                  await refetch()
-                }}
-                className="w-full flex items-center justify-between cursor-pointer px-3 py-2 text-sm rounded-lg hover:bg-accent hover:text-accent-foreground transition-all duration-200"
-              >
-                <span className="truncate">{item.title}</span>
-              </div>
-              {idx < list.length - 1 && <Separator className="my-1" />}
-            </div>
+  console.log(list)
+  return (
+    <div className="flex-1 p-2 h-[90vh] overflow-auto">
+    {list?.length ? (
+      <Table >
+        <TableHeader>
+          <TableRow>
+            <TableHead>Status</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Link</TableHead>
+            <TableHead>Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {list.map((item, idx:number) => (
+            <TableRow key={idx}>
+              <TableCell>
+                {item.is_active ? (
+                  <Badge className="bg-emerald-600/10 dark:bg-emerald-600/20 text-emerald-500 shadow-none rounded-full">
+                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 mr-2" />
+                    Active
+                  </Badge>
+                ) : (
+                  <Badge className="bg-red-600/10 dark:bg-red-600/20 text-red-500 shadow-none rounded-full">
+                    <div className="h-1.5 w-1.5 rounded-full bg-red-500 mr-2" />
+                    Blocked
+                  </Badge>
+                )}
+              </TableCell>
+              <TableCell>{item.title}</TableCell>
+              <TableCell>
+                <a
+                  className="text-sm hover:underline bg-muted relative rounded px-[0.3rem] py-[0.2rem] text-muted-foreground  "
+                  target="_blank"
+                  href={process.env.NEXT_PUBLIC_APP_URL + "api/v/"+item.id}
+                >
+                
+                 {process.env.NEXT_PUBLIC_APP_URL + "api/v/"+item.id}
+                
+                </a>
+              </TableCell>
+              <TableCell className="flex flex-row gap-1">
+              <DropdownMenu>
+  <DropdownMenuTrigger><EllipsisVertical size={20}/></DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem> <Pencil/> Edit</DropdownMenuItem>
+    <DropdownMenuItem><Trash2 className="text-red-500"/> Delete </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+              </TableCell>
+            </TableRow>
           ))}
-          {!list?.length && (
-            <div className="flex items-center justify-center h-32 text-muted-foreground text-sm">
-              No links found
-            </div>
-          )}
-        </div>
-      </ScrollArea>
-    </div>
+        </TableBody>
+      </Table>
+    ) : (
+      <div className="flex items-center justify-center h-32 text-muted-foreground text-sm">
+        No links found
+      </div>
+    )}
+  </div>
   );
 };
 

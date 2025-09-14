@@ -9,7 +9,7 @@ const Link = () => {
 
    if(isLoading){
     return <>
-    <div className="flex justify-center items-center h-[90vh]">
+    <div className="flex justify-center items-center h-[90vh] mt-1 rounded-lg border shadow-lg bg-background">
     <Spinner variant="circle"></Spinner>
     </div>
     </>
@@ -17,14 +17,9 @@ const Link = () => {
 
   return (
 <div className="flex flex-col h-[90vh] bg-background mt-1 rounded-lg border shadow-lg">
-  <div className="flex flex-row gap-2">
     <ListLink  />
-    <div className="flex-1 bg-accent">
-      <Details></Details>
-    </div>
 
   </div>
-</div>
 
 
   )
