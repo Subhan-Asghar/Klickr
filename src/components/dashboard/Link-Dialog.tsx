@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Switch } from "@/components/ui/switch"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
@@ -20,17 +21,19 @@ type Props={
     description:string,
     button_text:string,
     trigger: React.ReactNode,
-    submit:(title:string,link:string)=>Promise<string|void>,
+    submit:(title:string,link:string,active:boolean)=>Promise<string|void>,
     default_value?:{
         title:string,
-        link:string
-    }
+        link:string,
+        checked:boolean
+    },
 
 }
 
 export function LinkDialog({Dialog_title ,description,button_text,default_value,submit,trigger}:Props) {
     const [title,setTitle]=useState<string>("")
     const [link,setLink]=useState<string>("")
+    const [active, setActive] = useState(default_value?.checked ?? true);
     const [open,setOpen]=useState<boolean>(false)
     const [urlopen,setUrlOpen]=useState<boolean>(false)
     const [url,setUrl]=useState<string>("")
@@ -38,7 +41,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const handleSubmit =async(e: React.FormEvent)=>{
       try{
         e.preventDefault() 
-        const result=await submit(title,link)
+        const result=await submit(title,link,active)
         if(result){
           setOpen(false)
           setUrl(result?? "")
@@ -93,6 +96,13 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
                   onChange={(e) => setLink(e.target.value)}
                   required
                 />
+              </div>
+              <div className="flex items-center space-x-2">
+              <Switch id="active" 
+            checked={active}
+            onCheckedChange={setActive}
+              />
+              <Label htmlFor="active">Active</Label>
               </div>
             </div>
             <DialogFooter>

@@ -3,12 +3,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useLinkList } from "@/hooks/useLinkList";
-import { Trash2, ExternalLink ,  Pencil,EllipsisVertical} from "lucide-react"
+import { Trash2 ,Pencil,EllipsisVertical} from "lucide-react"
 import { useFetch } from "@/hooks/useFetch";
 import { Badge } from "@/components/ui/badge"
 import {

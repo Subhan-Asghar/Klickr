@@ -6,11 +6,12 @@ import { eq } from "drizzle-orm";
 export async function POST(req:NextRequest){
     try{
         const id=Number(req.headers.get("user-id"))
-        const {title,redirect}=await req.json()
+        const {title,redirect,active}=await req.json()
         const [result]=await db.insert(link).values({
             title:title,
             redirect:redirect,
-            user_id:id
+            user_id:id,
+            is_active:active
         }).returning({id:link.id})
         return NextResponse.json({
             message:"Link created successfully!",

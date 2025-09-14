@@ -21,18 +21,19 @@ import {
     const router=useRouter()
 
     const {mutateAsync:CreateLink}=useMutation({
-      mutationFn:async({ title, redirect }: { title: string, redirect: string }) => {  
-      const res=await axios.post("/api/link", { title, redirect})
+      mutationFn:async({ title, redirect,active }: { title: string, redirect: string ,active:boolean}) => {  
+      const res=await axios.post("/api/link", { title, redirect,active})
       return res.data
       }
       
     })
 
      
-    const submit=async(title:string,link:string)=>{
+    const submit=async(title:string,link:string,active:boolean)=>{
       const data={
        title:title,
-       redirect:link
+       redirect:link,
+       active:active
       }
       const res=CreateLink(data)
       toast.promise(res, {
