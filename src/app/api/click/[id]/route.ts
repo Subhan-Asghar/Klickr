@@ -7,8 +7,8 @@ export async function GET( req: NextRequest,
 { params }: { params: Promise<{ id: string }> }){
     try{
         const {id}= await params
-    const data=await db.select().from(click).where(eq(click.link_id,id))
-    return NextResponse.json({
+        const data=await db.select().from(click).where(eq(click.link_id,id))
+        return NextResponse.json({
         success:true,
         data:data
     },{status:200})

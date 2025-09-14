@@ -36,6 +36,13 @@
       "when": 1757180551132,
       "tag": "0004_wild_preak",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1757845290129,
+      "tag": "0005_ancient_hitman",
+      "breakpoints": true
     }
   ]
 }

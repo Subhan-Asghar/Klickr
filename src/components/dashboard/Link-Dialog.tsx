@@ -36,6 +36,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const [url,setUrl]=useState<string>("")
     const {refetch}=useLinkList()
     const handleSubmit =async(e: React.FormEvent)=>{
+      try{
         e.preventDefault() 
         const result=await submit(title,link)
         if(result){
@@ -45,6 +46,11 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
         
         }
         refetch()
+
+      }catch{
+        toast.error("Something went wrong")
+      }
+       
     }
     const copyToClipboard = async () => {
       if (url) {

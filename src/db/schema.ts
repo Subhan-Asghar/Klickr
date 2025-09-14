@@ -1,4 +1,4 @@
-import {pgTable,serial,timestamp, text, integer} from "drizzle-orm/pg-core"
+import {pgTable,serial,timestamp, text, integer, boolean} from "drizzle-orm/pg-core"
 import { customAlphabet} from "nanoid"
 const nanoid=customAlphabet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",8)
 
@@ -16,6 +16,7 @@ export const link=pgTable("link",{
     title:text("text").notNull(),
     redirect:text("redirect").notNull(),
     user_id:integer("user_id").notNull().references(()=>user.id),
+    is_active:boolean("is_active").default(true),
     created_at:timestamp("created_at").defaultNow().notNull(),
     updated_at:timestamp("updated_at").defaultNow().notNull(),
 

@@ -1,0 +1,1 @@
+ALTER TABLE "link" ADD COLUMN "is_active" boolean DEFAULT true;

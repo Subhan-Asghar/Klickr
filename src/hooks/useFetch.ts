@@ -4,7 +4,8 @@ import axios from "axios";
 export const useFetch=()=>{
     const [id,setId]=useState<string>("")
     const func=async()=>{
-        const res=await axios.get(`api/click/${id}`)
+        console.log(id)
+        const res=await axios.get(`/api/click/${id}`)
         return res.data
     }
     const{data,isLoading,refetch}=useQuery({

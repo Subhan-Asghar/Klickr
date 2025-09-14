@@ -9,11 +9,13 @@ export async function GET(
     {
     const {id}= await params
     const result = await db
-    .select({ redirect: link.redirect })
+    .select({ redirect: link.redirect,
+      active:link.is_active
+     })
     .from(link)
     .where(eq(link.id, id));
 
-  if (result.length === 0) {
+  if (result.length === 0 && !result[0].active) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
     
