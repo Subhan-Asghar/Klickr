@@ -21,7 +21,9 @@ import DeleteLink from "./DeleteLink";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const ListLink = () => {
+  const router=useRouter()
   const { data: list } = useLinkList();
   // Edit Function
 
@@ -30,24 +32,29 @@ const ListLink = () => {
       title,
       redirect,
       active,
-      id
+      id,
     }: {
       title: string;
       redirect: string;
       active: boolean;
-      id:string
+      id: string;
     }) => {
-      const res = await axios.put("/api/link", { title, redirect, active,id });
+      const res = await axios.put("/api/link", { title, redirect, active, id });
       return res.data;
     },
   });
 
-  const submit = async (title: string, link: string, active: boolean,id:string | undefined) => {
+  const submit = async (
+    title: string,
+    link: string,
+    active: boolean,
+    id: string | undefined
+  ) => {
     const data = {
       title: title,
       redirect: link,
       active: active,
-      id:id ??""
+      id: id ?? "",
     };
     const res = EditLink(data);
     toast.promise(res, {
@@ -73,7 +80,7 @@ const ListLink = () => {
           </TableHeader>
           <TableBody>
             {list.map((item, idx: number) => (
-              <TableRow key={idx}>
+              <TableRow key={idx} onClick={()=>router.push(`/details?id=${item.id}`)}>
                 <TableCell>
                   {item.is_active ? (
                     <Badge className="bg-emerald-600/10 dark:bg-emerald-600/20 text-emerald-500 shadow-none rounded-full">
@@ -102,8 +109,8 @@ const ListLink = () => {
                     trigger={<Pencil size={16} />}
                     submit={submit}
                     Dialog_title="Edit Link"
-                    button_text="Confirm"
-                    description="Edit the link"
+                    button_text="Save Changes"
+                    description="Update the title, URL, or status of your link."
                     id={item.id}
                     default_value={{
                       title: item.title,

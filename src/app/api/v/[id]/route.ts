@@ -15,7 +15,7 @@ export async function GET(
     .from(link)
     .where(eq(link.id, id));
 
-  if (result.length === 0 && !result[0].active) {
+  if (result.length === 0 || !result[0].active) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
     

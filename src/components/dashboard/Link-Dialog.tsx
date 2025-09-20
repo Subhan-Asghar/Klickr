@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { useLinkList } from "@/hooks/useLinkList"
+import { Copy } from 'lucide-react';
 
 type Props={
     Dialog_title:string,
@@ -41,10 +42,10 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const {refetch}=useLinkList()
 
     useEffect(() => {
-      if (open && default_value) {
-        setTitle(default_value.title ?? "");
-        setLink(default_value.link ?? "");
-        setActive(default_value.checked ?? true);
+      if (open) {
+        setTitle(default_value?.title ?? "");
+        setLink(default_value?.link ?? "");
+        setActive(default_value?.checked ?? true);
       }
     }, [open]);
     const handleSubmit =async(e: React.FormEvent)=>{
@@ -74,7 +75,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     <>
     <Dialog open={open}  onOpenChange={setOpen}>
         
-          <DialogTrigger asChild>
+          <DialogTrigger asChild className="cursor-pointer">
            {trigger}
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -136,7 +137,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
             </DialogHeader>
             <div className="flex items-center gap-2">
               <Input value={url} readOnly />
-              <Button onClick={copyToClipboard}>Copy</Button>
+              <Button onClick={copyToClipboard}><Copy/></Button>
             </div>
           </div>
       </DialogContent>

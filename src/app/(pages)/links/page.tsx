@@ -3,7 +3,6 @@ import React from 'react'
 import ListLink from '@/components/link/ListLink'
 import { Spinner } from '@/components/ui/shadcn-io/spinner';
 import { useLinkList } from "@/hooks/useLinkList";
-import Details from '@/components/link/Details';
 const Link = () => {
    const {isLoading}=useLinkList()
 
@@ -18,7 +17,6 @@ const Link = () => {
   return (
 <div className="flex flex-col h-[90vh] bg-background mt-1 rounded-lg border shadow-lg">
     <ListLink  />
-
   </div>
 
 

@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { useLinkList } from "@/hooks/useLinkList";
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -40,7 +39,7 @@ const DeleteLink = ({id,trigger}:{id:string,trigger:React.ReactNode}) => {
   return (
     <>
 <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
+      <AlertDialogTrigger asChild className="cursor-pointer">
         {trigger}
       </AlertDialogTrigger>
       <AlertDialogContent>
