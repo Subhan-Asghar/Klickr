@@ -7,8 +7,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useLinkList } from "@/hooks/useLinkList";
 import { Trash2 ,Pencil,EllipsisVertical} from "lucide-react"
-import { useFetch } from "@/hooks/useFetch";
 import { Badge } from "@/components/ui/badge"
+import { LinkDialog } from "../dashboard/Link-Dialog";
 import {
   Table,
   TableBody,
@@ -20,6 +20,9 @@ import {
 import DeleteLink from "./DeleteLink";
 const ListLink = () => {
   const { data: list } = useLinkList();
+  console.log(list)
+  // Edit Function
+
   return (
     <div className="flex-1 p-2 h-[90vh] overflow-auto">
     {list?.length ? (
@@ -61,7 +64,18 @@ const ListLink = () => {
                 </a>
               </TableCell>
               <TableCell className="flex flex-row gap-2">
-              <Pencil size={16}/> 
+                {/* <LinkDialog
+                trigger={<Pencil size={16}/> }
+                submit={}
+                default_value={
+                  title:{item.title},
+                  link:{item.redirect},
+                  checked:{item.is_active}
+
+                }
+                />  */}
+              
+              
               
               <DeleteLink
                 trigger={

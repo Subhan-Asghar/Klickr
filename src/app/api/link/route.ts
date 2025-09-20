@@ -66,3 +66,30 @@ export async function DELETE(req:NextRequest){
     }
    
 }
+
+
+
+export async function PUT(req:NextRequest){
+    try{
+        const id=Number(req.headers.get("user-id"))
+        const {title,redirect,active}=await req.json()
+        const [result]=await db.update(link).set({
+            title:title,
+            redirect:redirect,
+            is_active:active
+        }).where(eq(link.user_id,id)).returning({id:link.id})
+        return NextResponse.json({
+            message:"Link Updated successfully!",
+            success:true,
+            link:process.env.NEXT_PUBLIC_APP_URL+`api/v/${result.id}`
+        })
+
+    }
+    catch{
+        return NextResponse.json({
+            message:"Internal Server Error",
+            success:false
+        })
+    }
+   
+}
