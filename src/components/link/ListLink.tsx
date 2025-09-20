@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useLinkList } from "@/hooks/useLinkList";
-import { Trash2, Pencil, EllipsisVertical } from "lucide-react";
+import { Trash2, Pencil } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { LinkDialog } from "../dashboard/Link-Dialog";
 import {
