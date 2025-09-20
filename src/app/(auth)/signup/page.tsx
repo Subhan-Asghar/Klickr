@@ -40,9 +40,9 @@ const Signup = () => {
       setDisable(true)
       await axios.post("/api/auth/signup", data).
       then(()=>route.push('/'))
-    } catch (err) {
+    } catch {
       setDisable(false)
-      toast.error(err.response?.data?.message || "Something went wrong")
+      toast.error("Something went wrong")
     }
   }
 

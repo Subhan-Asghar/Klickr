@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
         headers: requestHeaders,
       },
     });
-  } catch(err) {
+  } catch{
     return NextResponse.redirect(new URL("/login", req.url));
   }
 }
