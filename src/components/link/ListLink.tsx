@@ -17,12 +17,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
+import DeleteLink from "./DeleteLink";
 const ListLink = () => {
   const { data: list } = useLinkList();
-  const {setId,refetch}=useFetch()
-
-  console.log(list)
   return (
     <div className="flex-1 p-2 h-[90vh] overflow-auto">
     {list?.length ? (
@@ -63,14 +60,15 @@ const ListLink = () => {
                 
                 </a>
               </TableCell>
-              <TableCell className="flex flex-row gap-1">
-              <DropdownMenu>
-  <DropdownMenuTrigger><EllipsisVertical size={20}/></DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuItem> <Pencil/> Edit</DropdownMenuItem>
-    <DropdownMenuItem><Trash2 className="text-red-500"/> Delete </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
+              <TableCell className="flex flex-row gap-2">
+              <Pencil size={16}/> 
+              
+              <DeleteLink
+                trigger={
+                <Trash2 size={16} className="text-red-500"/>
+                }
+                id={item.id}
+              />
               </TableCell>
             </TableRow>
           ))}

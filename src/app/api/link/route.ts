@@ -62,7 +62,7 @@ export async function DELETE(req:NextRequest){
             return NextResponse.json({
                 message:"Internal Server Error",
                 success:false
-            })
+            },{status:500})
     }
    
 }
