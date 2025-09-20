@@ -12,7 +12,7 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { useLinkList } from "@/hooks/useLinkList"
 
@@ -21,7 +21,8 @@ type Props={
     description:string,
     button_text:string,
     trigger: React.ReactNode,
-    submit:(title:string,link:string,active:boolean)=>Promise<string|void>,
+    id:string,
+    submit:(title:string,link:string,active:boolean,id?:string)=>Promise<string|void>,
     default_value?:{
         title:string,
         link:string,
@@ -30,18 +31,26 @@ type Props={
 
 }
 
-export function LinkDialog({Dialog_title ,description,button_text,default_value,submit,trigger}:Props) {
-    const [title,setTitle]=useState<string>("")
-    const [link,setLink]=useState<string>("")
-    const [active, setActive] = useState(default_value?.checked ?? true);
+export function LinkDialog({Dialog_title ,description,button_text,default_value,submit,trigger,id}:Props) {
+  const [title, setTitle] = useState("");
+  const [link, setLink] = useState("");
+    const [active, setActive] = useState(true);
     const [open,setOpen]=useState<boolean>(false)
     const [urlopen,setUrlOpen]=useState<boolean>(false)
     const [url,setUrl]=useState<string>("")
     const {refetch}=useLinkList()
+
+    useEffect(() => {
+      if (open && default_value) {
+        setTitle(default_value.title ?? "");
+        setLink(default_value.link ?? "");
+        setActive(default_value.checked ?? true);
+      }
+    }, [open]);
     const handleSubmit =async(e: React.FormEvent)=>{
       try{
         e.preventDefault() 
-        const result=await submit(title,link,active)
+        const result=await submit(title,link,active,id)
         if(result){
           setOpen(false)
           setUrl(result?? "")
@@ -76,23 +85,23 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
             </DialogHeader>
             <div className="grid gap-4">
               <div className="grid gap-3">
-                <Label htmlFor="title">Title:</Label>
+                <Label htmlFor="title">Title</Label>
                 <Input
                   id="title"
                   name="title"
                   placeholder="Title"
-                  defaultValue={default_value?.title}
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
                 />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="redirect">Redirect:</Label>
+                <Label htmlFor="redirect">Redirect</Label>
                 <Input
                   id="redirect"
                   name="redirect"
                   placeholder="https://www.example.com/"
-                  defaultValue={default_value?.link}
+                  value={link}
                   onChange={(e) => setLink(e.target.value)}
                   required
                 />
