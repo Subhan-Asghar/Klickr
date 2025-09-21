@@ -74,7 +74,7 @@ const ListLink = () => {
           </TableHeader>
           <TableBody>
             {list.map((item, idx: number) => (
-              <TableRow key={idx} onClick={()=>router.push(`/details?id=${item.id}`)}>
+              <TableRow key={idx}>
                 <TableCell>
                   {item.is_active ? (
                     <Badge className="bg-emerald-600/10 dark:bg-emerald-600/20 text-emerald-500 shadow-none rounded-full">
@@ -88,7 +88,7 @@ const ListLink = () => {
                     </Badge>
                   )}
                 </TableCell>
-                <TableCell>{item.title}</TableCell>
+                <TableCell  onClick={()=>router.push(`/details?id=${item.id}`)}>{item.title}</TableCell>
                 <TableCell>
                   <a
                     className="text-sm hover:underline bg-muted relative rounded px-[0.3rem] py-[0.2rem] text-muted-foreground  "
