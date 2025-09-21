@@ -17,6 +17,7 @@ const Num_Card = ({ title }: Props) => {
         <CardTitle className="font-semibold">{title}</CardTitle>
       </CardHeader>
       <CardContent>
+     
       </CardContent>
     </Card>
   )

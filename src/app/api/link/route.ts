@@ -76,7 +76,8 @@ export async function PUT(req:NextRequest){
         const [result]=await db.update(link).set({
             title:title,
             redirect:redirect,
-            is_active:active
+            is_active:active,
+            updated_at: new Date()
         }).where(eq(link.id,id)).returning({id:link.id})
         return NextResponse.json({
             message:"Link Updated successfully!",
