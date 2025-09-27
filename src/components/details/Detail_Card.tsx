@@ -105,6 +105,14 @@ const Detail_Card = ({ title,data }: Props) => {
                     </Badge>
                   )}
             </div>
+            <div className="flex justify-between px-2 pt-2">
+                Created on
+                <p>{new Date(data.created_at).toLocaleString().split(",")[0]}</p>
+            </div>
+            <div className="flex justify-between px-2 pt-2">
+                Last Updated
+                <p>{new Date(data.updated_at).toLocaleString().split(",")[0]}</p>
+            </div>
       </CardContent>
     </Card>
   );
