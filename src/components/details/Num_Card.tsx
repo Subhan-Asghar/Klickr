@@ -7,17 +7,21 @@ import {
 } from "@/components/ui/card"
 
 type Props = {
-  title: string
+  title: string,
+  num:number
 }
 
-const Num_Card = ({ title }: Props) => {
+const Num_Card = ({ title,num}: Props) => {
   return (
-    <Card className=" w-64 h-48">
+    <Card className=" w-72 h-48">
       <CardHeader>
         <CardTitle className="font-semibold">{title}</CardTitle>
       </CardHeader>
-      <CardContent>
-     
+      <CardContent className='h-full flex justify-center'>
+        <div className="text-6xl font-extrabold tracking-tight ">
+        {num}
+        </div>
+    
       </CardContent>
     </Card>
   )

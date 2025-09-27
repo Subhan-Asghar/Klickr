@@ -44,8 +44,8 @@ export async function GET( req: NextRequest,
         data: {
           totalClicks,
           countryStats,
-          uniqueCount,
-          info
+          uniqueCount:uniqueCount[0].count,
+          info:info[0]
         },
       });
     }catch(err){
