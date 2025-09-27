@@ -18,7 +18,8 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 const ListLink = () => {
   const router=useRouter()
-  const { data: list } = useLinkList();
+  const { data: list,refetch } = useLinkList();
+
   // Edit Function
 
   const { mutateAsync: EditLink } = useMutation({
@@ -111,6 +112,7 @@ const ListLink = () => {
                       link: item.redirect,
                       checked: item.is_active,
                     }}
+                    refetch={refetch}
                   />
 
                   <DeleteLink

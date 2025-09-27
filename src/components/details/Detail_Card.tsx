@@ -8,6 +8,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
+import { useDetails } from '@/hooks/useDetails'
 type Props = {
   title: string;
   data: {
@@ -23,6 +24,7 @@ type Props = {
 
 const Detail_Card = ({ title,data }: Props) => {
     const route=useRouter()
+    const {refetch} =useDetails()
     
   const { mutateAsync: EditLink } = useMutation({
     mutationFn: async ({
@@ -81,6 +83,7 @@ const Detail_Card = ({ title,data }: Props) => {
                       link: data.redirect,
                       checked: data.is_active,
                     }}
+                    refetch={refetch}
                   />
 
                   <DeleteLink

@@ -7,17 +7,9 @@ import { Spinner } from '@/components/ui/shadcn-io/spinner'
 import Num_Card from '@/components/details/Num_Card'
 import Country_Card from '@/components/details/Country_Card'
 import Detail_Card from '@/components/details/Detail_Card'
-
+import { useDetails } from '@/hooks/useDetails'
 const Details = () => {
-    const param=useSearchParams()
-    const id=param.get("id")
-    const {data,isLoading}=useQuery({
-        queryKey:["details",id],
-        queryFn:async()=>{
-            const res= await axios.get(`/api/click/${id}`)
-            return res.data.data
-        }
-    })
+    const {data,isLoading}=useDetails()
     console.log(data)
       if(isLoading){
         return <>

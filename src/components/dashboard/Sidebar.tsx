@@ -17,9 +17,10 @@ import {
   import axios from "axios";
   import { useRouter } from "next/navigation";
   import { useMutation } from "@tanstack/react-query";
+import { useLinkList } from "@/hooks/useLinkList";
   export function AppSidebar() {
     const router=useRouter()
-
+    const {refetch}=useLinkList()
     const {mutateAsync:CreateLink}=useMutation({
       mutationFn:async({ title, redirect,active }: { title: string, redirect: string ,active:boolean}) => {  
       const res=await axios.post("/api/link", { title, redirect,active})
@@ -91,6 +92,7 @@ import {
                 description="Create a new link that you can modify later"
                 Dialog_title="Create Link"
                 submit={submit}
+                refetch={refetch}
                 />
                 
               </SidebarMenuItem>

@@ -22,8 +22,9 @@ type Props={
     description:string,
     button_text:string,
     trigger: React.ReactNode,
-    id:string,
+    id?:string,
     submit:(title:string,link:string,active:boolean,id?:string)=>Promise<string|void>,
+    refetch?:()=>void,
     default_value?:{
         title:string,
         link:string,
@@ -32,14 +33,14 @@ type Props={
 
 }
 
-export function LinkDialog({Dialog_title ,description,button_text,default_value,submit,trigger,id}:Props) {
+export function LinkDialog({Dialog_title ,description,button_text,default_value,submit,trigger,id,refetch}:Props) {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
     const [active, setActive] = useState(true);
     const [open,setOpen]=useState<boolean>(false)
     const [urlopen,setUrlOpen]=useState<boolean>(false)
     const [url,setUrl]=useState<string>("")
-    const {refetch}=useLinkList()
+    
 
     useEffect(() => {
       if (open) {
@@ -58,7 +59,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
           setUrlOpen(true)
         
         }
-        refetch()
+        refetch?.()
 
       }catch{
         toast.error("Something went wrong")
