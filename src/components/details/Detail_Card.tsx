@@ -6,7 +6,8 @@ import { LinkDialog } from "../dashboard/Link-Dialog";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
-
+import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
 type Props = {
   title: string;
   data: {
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const Detail_Card = ({ title,data }: Props) => {
+    const route=useRouter()
     
   const { mutateAsync: EditLink } = useMutation({
     mutationFn: async ({
@@ -84,12 +86,25 @@ const Detail_Card = ({ title,data }: Props) => {
                   <DeleteLink
                     trigger={<Trash2 size={16} className="text-red-500" />}
                     id={data.id}
+                    func={()=>{route.push("/links")}}
                   />
           </div>
         </CardTitle>
       </CardHeader>
       <CardContent >
-    {data.id}
+            <div className="flex justify-between px-2">Status
+            {data.is_active ? (
+                    <Badge className="bg-emerald-600/10 dark:bg-emerald-600/20 text-emerald-500 shadow-none rounded-full">
+                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 mr-2" />
+                      Active
+                    </Badge>
+                  ) : (
+                    <Badge className="bg-red-600/10 dark:bg-red-600/20 text-red-500 shadow-none rounded-full">
+                      <div className="h-1.5 w-1.5 rounded-full bg-red-500 mr-2" />
+                      Blocked
+                    </Badge>
+                  )}
+            </div>
       </CardContent>
     </Card>
   );

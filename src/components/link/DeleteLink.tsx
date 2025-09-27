@@ -14,7 +14,7 @@ import {
   } from "@/components/ui/alert-dialog"
 import { Button } from "../ui/button";
 
-const DeleteLink = ({id,trigger}:{id:string,trigger:React.ReactNode}) => {
+const DeleteLink = ({id,trigger,func}:{id:string,trigger:React.ReactNode,func?:()=>void}) => {
     const {refetch}=useLinkList()
     const [open, setOpen] = useState(false);
     const deleteLink=async(id:string)=>{
@@ -29,6 +29,7 @@ const DeleteLink = ({id,trigger}:{id:string,trigger:React.ReactNode}) => {
             })
             await res
             refetch()
+            func?.()
             setOpen(false); 
 
         }
