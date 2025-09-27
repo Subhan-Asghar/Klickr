@@ -35,7 +35,7 @@ export async function GET( req: NextRequest,
   .select({
     count: sql<number>`COUNT(DISTINCT ${click.ip})`,
   })
-  .from(click);
+  .from(click).where(eq(click.link_id,id));
 
    
 
