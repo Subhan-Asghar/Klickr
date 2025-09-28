@@ -17,5 +17,5 @@ export const useGraph=()=>{
         },
         enabled: !!id
     })
-    return {data,isLoading,refetch}
+    return {data,isLoading,refetch,start,end}
 }
