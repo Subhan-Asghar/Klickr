@@ -24,7 +24,7 @@ const Details = () => {
   <Country_Card title='Countries' data={data.countryStats}/> 
   <Detail_Card title='Details' data={data.info}/>
 </div >
-<div className='mb-6'>
+<div className='mb-12 mr-6'>
 <Graph/>
 </div>
    

@@ -8,9 +8,7 @@ const Graph = () => {
   const [value, setValue] = useState<BarChartEventProps | null>(null)
     console.log(data)
     if(isLoading){
-      return (<>
-        Loading
-      </>)
+      return 
     }
 
     function getDateRange(start: string, end: string) {
@@ -19,7 +17,7 @@ const Graph = () => {
       const last = new Date(end)
     
       while (current <= last) {
-        dates.push(new Date(current).toISOString().split("T")[0]) // YYYY-MM-DD
+        dates.push(new Date(current).toISOString().split("T")[0]) 
         current.setDate(current.getDate() + 1)
       }
       return dates
@@ -37,7 +35,7 @@ const Graph = () => {
         month: "short",
         day: "numeric",
       }),
-      "Page Views": lookup[d] ?? 0,
+      "Total Clicks": lookup[d] ?? 0,
     }))
 
   return (
@@ -46,13 +44,14 @@ const Graph = () => {
         className="h-64 "
         data={chartData}
         index="date"
-        categories={["Page Views"]}
+        categories={["Total Clicks"]}
         colors={["blue"]}
         valueFormatter={(num: number) =>
           Intl.NumberFormat("en-US").format(num)
         }
         onValueChange={(v) => setValue(v)}
         yAxisWidth={60}
+    
       />
 
       {value && (
