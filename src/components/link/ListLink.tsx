@@ -61,6 +61,17 @@ const ListLink = () => {
     return result.link;
   };
 
+  const DetailRouter=(id:string)=>{
+    const today=new Date()
+    const lastweek=new Date()
+  
+    lastweek.setDate(today.getDate() -7)
+    const end=today.toISOString().split("T")[0]
+    const start=lastweek.toISOString().split("T")[0]
+
+    router.push(`/details?id=${id}&start=${start}&end=${end}`)
+  }
+
   return (
     <div className="flex-1 p-2 h-[90vh] overflow-auto">
       {list?.length ? (
@@ -89,7 +100,7 @@ const ListLink = () => {
                     </Badge>
                   )}
                 </TableCell>
-                <TableCell  onClick={()=>router.push(`/details?id=${item.id}`)}>{item.title}</TableCell>
+                <TableCell  onClick={()=>DetailRouter(item.id)}>{item.title}</TableCell>
                 <TableCell>
                   <a
                     className="text-sm hover:underline bg-muted relative rounded px-[0.3rem] py-[0.2rem] text-muted-foreground  "

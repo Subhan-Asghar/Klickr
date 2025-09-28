@@ -5,10 +5,10 @@ import Num_Card from '@/components/details/Num_Card'
 import Country_Card from '@/components/details/Country_Card'
 import Detail_Card from '@/components/details/Detail_Card'
 import { useDetails } from '@/hooks/useDetails'
+import Graph from '@/components/details/Graph'
 
 const Details = () => {
     const {data,isLoading}=useDetails()
-    console.log(data)
       if(isLoading){
         return <>
         <div className="flex justify-center items-center h-full rounded-lg border shadow-lg bg-background">
@@ -24,9 +24,7 @@ const Details = () => {
   <Country_Card title='Countries' data={data.countryStats}/> 
   <Detail_Card title='Details' data={data.info}/>
 </div>
-      <div>
-        <h1>Name IS Subhan </h1>
-      </div>
+    <Graph/>
   </div>
   
   )
