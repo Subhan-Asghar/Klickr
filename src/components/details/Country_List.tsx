@@ -31,7 +31,7 @@ const Country_List = ({trigger,data}:props) => {
           <ScrollArea className="flex max-h-full flex-col overflow-hidden">
           <DialogDescription asChild>
             <div className="p-6">
-                {data.map((d,i)=>(
+                {Array.isArray(data) &&data.map((d,i)=>(
                      <div key={i} >
                      <div className="flex justify-between px-2 pb-2 text-primary font-semibold"> 
                          <h3 className="">{d.country}</h3>

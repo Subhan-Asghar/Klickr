@@ -11,9 +11,8 @@ export async function GET( req: NextRequest,
         const {id}= await params
         const user_id=Number(req.headers.get("user-id"))
         const info =await db.select().from(link).where(eq(link.id,id))
-        
-        if(!info.length || info[0].user_id!= user_id){
-          return NextResponse.redirect("/dashboard");
+        if(!info.length || info[0].user_id!== user_id){
+          return NextResponse.redirect(new URL("/dashboard",req.url));
         }
         const clicks = await db
         .select()

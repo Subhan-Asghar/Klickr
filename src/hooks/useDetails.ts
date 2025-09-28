@@ -9,8 +9,9 @@ export const useDetails=()=>{
             queryKey:["details",id],
             queryFn:async()=>{
                 const res= await axios.get(`/api/click/${id}`)
-                return res.data.data
-            }
+                return res.data.data?? []
+            },
+            enabled: !!id
         })
         return{data,isLoading,refetch}
 }
