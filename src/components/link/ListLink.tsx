@@ -66,8 +66,10 @@ const ListLink = () => {
     const lastweek=new Date()
   
     lastweek.setDate(today.getDate() -7)
-    const end=today.toISOString().split("T")[0]
-    const start=lastweek.toISOString().split("T")[0]
+    // const end=today.toISOString().split("T")[0]
+    // const start=lastweek.toISOString().split("T")[0]
+    const start=lastweek
+    const end=today
 
     router.push(`/details?id=${id}&start=${start}&end=${end}`)
   }

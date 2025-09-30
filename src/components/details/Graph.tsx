@@ -1,5 +1,4 @@
 import React from 'react'
-import { useGraph } from '@/hooks/use-graph'
 import { useState } from 'react'
 import { BarChart, type BarChartEventProps } from "@/components/BarChart"
 
@@ -7,14 +6,10 @@ type Props={
   start:string | null,
   end:string | null,
   data:{date:string,total:string}[],
-  isLoading:any
 }
-const Graph = ({start,end,data,isLoading}:Props) => {
+const Graph = ({start,end,data}:Props) => {
   const [value, setValue] = useState<BarChartEventProps | null>(null)
-    console.log(data)
-    if(isLoading){
-      return 
-    }
+
 
     function getDateRange(start: string, end: string) {
       const dates: string[] = []

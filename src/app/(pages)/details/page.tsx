@@ -12,7 +12,7 @@ const Details = () => {
     const {data,isLoading}=useDetails()
     const {data:graph_data,isLoading:graph_loading,start,end}=useGraph()
 
-      if(isLoading){
+      if(isLoading || graph_loading){
         return <>
         <div className="flex justify-center items-center h-full rounded-lg border shadow-lg bg-background">
         <Spinner variant="circle"></Spinner>
@@ -30,7 +30,6 @@ const Details = () => {
 <div className='mb-12 mr-6'>
 <Graph
 data={graph_data.result}
-isLoading={graph_loading}
 start={start}
 end={end}
 />
