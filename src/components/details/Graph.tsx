@@ -3,8 +3,13 @@ import { useGraph } from '@/hooks/use-graph'
 import { useState } from 'react'
 import { BarChart, type BarChartEventProps } from "@/components/BarChart"
 
-const Graph = () => {
-  const {data,start,end,isLoading}=useGraph()
+type Props={
+  start:string | null,
+  end:string | null,
+  data:{date:string,total:string}[],
+  isLoading:any
+}
+const Graph = ({start,end,data,isLoading}:Props) => {
   const [value, setValue] = useState<BarChartEventProps | null>(null)
     console.log(data)
     if(isLoading){
@@ -26,7 +31,7 @@ const Graph = () => {
     const fullDates = getDateRange(start!, end!)
     
     const lookup: Record<string, number> = {}
-    data.result.forEach((item: { date: string; total: string }) => {
+    data.forEach((item: { date: string; total: string }) => {
       lookup[item.date] = Number(item.total)
     })
     

@@ -6,9 +6,12 @@ import Country_Card from '@/components/details/Country_Card'
 import Detail_Card from '@/components/details/Detail_Card'
 import { useDetails } from '@/hooks/useDetails'
 import Graph from '@/components/details/Graph'
+import { useGraph } from '@/hooks/use-graph'
 
 const Details = () => {
     const {data,isLoading}=useDetails()
+    const {data:graph_data,isLoading:graph_loading,start,end}=useGraph()
+
       if(isLoading){
         return <>
         <div className="flex justify-center items-center h-full rounded-lg border shadow-lg bg-background">
@@ -25,7 +28,12 @@ const Details = () => {
   <Detail_Card title='Details' data={data.info}/>
 </div >
 <div className='mb-12 mr-6'>
-<Graph/>
+<Graph
+data={graph_data.result}
+isLoading={graph_loading}
+start={start}
+end={end}
+/>
 </div>
    
   </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+
 export const useGraph=()=>{
     const params=useSearchParams()
     const id=params.get("id")
