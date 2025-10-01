@@ -30,6 +30,7 @@ export const config = {
   matcher: ["/dashboard/:path*",
     "/api/link/:path*",
     "/links/:path*",
-    "/api/click/:path*"
+    "/api/click/:path*",
+    "/api/dashboard/:path*"
   ],
 };
