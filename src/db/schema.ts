@@ -29,5 +29,5 @@ export const click=pgTable("click",{
     country:text("country").notNull(),
     lat:text("lat").notNull(),
     lon:text("lon").notNull(),
-    time:timestamp("time").defaultNow().notNull()
+    time:timestamp("time",{ withTimezone: true }).defaultNow().notNull()
 })

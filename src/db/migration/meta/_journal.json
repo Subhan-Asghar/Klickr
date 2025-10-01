@@ -43,6 +43,13 @@
       "when": 1757845290129,
       "tag": "0005_ancient_hitman",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1759325890349,
+      "tag": "0006_bored_scorpion",
+      "breakpoints": true
     }
   ]
 }

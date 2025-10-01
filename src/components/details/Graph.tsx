@@ -11,32 +11,38 @@ const Graph = ({start,end,data,}:Props) => {
   const [value, setValue] = useState<BarChartEventProps | null>(null)
 
 
-    function getDateRange(start: string, end: string) {
-      const dates: string[] = []
-      const current = new Date(start)
-      const last = new Date(end)
-    
-      while (current <= last) {
-        dates.push(new Date(current).toISOString().split("T")[0]) 
-        current.setDate(current.getDate() + 1)
-      }
-      return dates
+  function getDateRange(start: string, end: string) {
+    const dates: string[] = []
+    const current = new Date(start)
+    const last = new Date(end)
+  
+    while (current <= last) {
+      const d = current.toISOString().split("T")[0]
+      dates.push(d)
+      current.setDate(current.getDate() + 1)
     }
-    
-    const fullDates = getDateRange(start!, end!)
-    
-    const lookup: Record<string, number> = {}
-    data.forEach((item: { date: string; total: string }) => {
-      lookup[item.date] = Number(item.total)
-    })
-    
-    const chartData = fullDates.map((d) => ({
-      date: new Date(d).toLocaleDateString("en-US", {
+  
+    return dates
+  }
+  
+  const fullDates = getDateRange(start!, end!)
+  
+  const lookup: Record<string, number> = {}
+  data.forEach((item: { date: string; total: string }) => {
+    lookup[item.date] = Number(item.total)
+  })
+  
+  const chartData = fullDates.map((d) => {
+    const dateObj = new Date(d) 
+    return {
+      date: dateObj.toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 👈 user's local tz
       }),
       "Total Clicks": lookup[d] ?? 0,
-    }))
+    }
+  })
 
   return (
   <>

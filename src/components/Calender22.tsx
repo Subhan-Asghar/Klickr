@@ -18,6 +18,14 @@ export function Calendar22() {
   const param=useSearchParams()
   const id=param.get("id")
 
+  function toUTCMidnightISO(date: Date) {
+    const utcDate = new Date(Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    ))
+    return utcDate.toISOString()
+  }
 
   return (
     <div className="flex flex-col gap-3 ">
@@ -41,11 +49,13 @@ export function Calendar22() {
               setDate(date)
               if (!date) return; 
               const selected=new Date(date)
-              const nextweek=new Date()
+              const nextweek=new Date(selected)
               nextweek.setDate(selected.getDate() +6)
-              const start = selected.toISOString()
-              const end = nextweek.toISOString()
-              
+              // const start = selected.toString().split("(")[0]
+              // const end = nextweek.toString().split("(")[0]
+              const start = toUTCMidnightISO(selected)
+              const end = toUTCMidnightISO(nextweek)
+            
               const params=new URLSearchParams()
               if(id){
                 params.set("id",id as string)
