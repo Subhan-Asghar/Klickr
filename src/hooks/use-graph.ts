@@ -7,7 +7,7 @@ export const useGraph=()=>{
     const id=params.get("id")
     const start=params.get("start")
     const end=params.get("end")
-    const {data,isLoading,refetch}=useQuery({
+    const {data,isLoading,refetch,isFetching}=useQuery({
         queryKey:["graph",start,end,id],
         queryFn:async ()=>{
             const res=await axios.post(`/api/click/${id}/graph`,{
@@ -18,5 +18,5 @@ export const useGraph=()=>{
         },
         enabled: !!id
     })
-    return {data,isLoading,refetch,start,end}
+    return {data,isLoading,refetch,start,end,isFetching}
 }

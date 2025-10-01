@@ -4,6 +4,7 @@ import { ChevronDownIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
+import { useRouter,useSearchParams } from "next/navigation"
 import {
   Popover,
   PopoverContent,
@@ -13,12 +14,13 @@ import {
 export function Calendar22() {
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date | undefined>(undefined)
+  const router=useRouter()
+  const param=useSearchParams()
+  const id=param.get("id")
+
 
   return (
-    <div className="flex flex-col gap-3">
-      <Label htmlFor="date" className="px-1">
-        Select Date
-      </Label>
+    <div className="flex flex-col gap-3 ">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -37,7 +39,22 @@ export function Calendar22() {
             captionLayout="dropdown"
             onSelect={(date) => {
               setDate(date)
+              if (!date) return; 
+              const selected=new Date(date)
+              const nextweek=new Date()
+              nextweek.setDate(selected.getDate() +6)
+              const start = selected.toISOString()
+              const end = nextweek.toISOString()
+              
+              const params=new URLSearchParams()
+              if(id){
+                params.set("id",id as string)
+              }
+              params.set("start",start)
+              params.set("end",end)
               setOpen(false)
+              router.push(`?${params.toString()}`)
+
             }}
           />
         </PopoverContent>

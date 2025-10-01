@@ -7,7 +7,7 @@ type Props={
   end:string | null,
   data:{date:string,total:string}[],
 }
-const Graph = ({start,end,data}:Props) => {
+const Graph = ({start,end,data,}:Props) => {
   const [value, setValue] = useState<BarChartEventProps | null>(null)
 
 
@@ -40,6 +40,7 @@ const Graph = ({start,end,data}:Props) => {
 
   return (
   <>
+ 
      <BarChart
         className="h-64 "
         data={chartData}
