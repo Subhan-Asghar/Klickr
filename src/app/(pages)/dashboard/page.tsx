@@ -6,12 +6,15 @@ import Num_Card from "@/components/details/Num_Card";
 import Country_Card from "@/components/details/Country_Card";
 import Dash_Detail from "@/components/dashboard/Dash_Detail";
 import { useRouter } from "next/navigation";
+import { useDash_Graph } from "@/hooks/dash-graph";
+import { Calendar22 } from "@/components/Calender22";
+import Graph from "@/components/details/Graph";
 
 const Dashboard = () => {
   const router = useRouter();
   const { data, isLoading } = useDashboard();
-  console.log(data);
-
+  const { data: graph_data, start, end } = useDash_Graph();
+  console.log(graph_data);
   React.useEffect(() => {
     const func = () => {
       const today = new Date();
@@ -29,12 +32,14 @@ const Dashboard = () => {
       const end = new Date(
         Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
       ).toISOString();
-
-      router.push(`/dashboard?&start=${start}&end=${end}`);
+      const params = new URLSearchParams();
+      params.set("start", start);
+      params.set("end", end);
+      router.push(`?${params.toString()}`);
     };
     func();
   }, []);
-  
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-full rounded-lg border shadow-lg bg-background">
@@ -53,13 +58,13 @@ const Dashboard = () => {
           <Dash_Detail title="Details" totalLink={data.total_link} />
         </div>
 
-        {/* <div className="mb-12 mr-6">
-        <div className="ml-6">
-          <Calendar22 />
-        </div>
+        <div className="mb-12 mr-6">
+          <div className="ml-6">
+            <Calendar22 />
+          </div>
 
-        <Graph data={graph_data?.result ?? []} start={start} end={end} />
-      </div> */}
+          <Graph data={graph_data?.result ?? []} start={start} end={end} />
+        </div>
       </div>
     </>
   );
