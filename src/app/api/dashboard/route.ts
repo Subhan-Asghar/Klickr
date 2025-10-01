@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/db/db";
 import { click, link } from "@/db/schema";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, gte, lte, sql } from "drizzle-orm";
 
 export async function GET(req: NextRequest) {
   const user_id = Number(req.headers.get("user-id"));
@@ -29,4 +29,32 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ result, countryStats,
     total_link
    });
+}
+
+
+export async function POST(req:NextRequest){
+    try{
+         const {start,end}=await req.json()
+                const user_id=Number(req.headers.get("user-id"))
+                const result = await db.select({
+                    date:sql`DATE(${click.time})`,
+                    total:sql<number>`COUNT(*)`
+                }).from(link)
+                .innerJoin(click,eq(click.link_id,link.id
+                ))
+                .where(and(eq(link.user_id,user_id),
+                gte(click.time, new Date(start)),  
+                lte(click.time, new Date(end))   
+            ))
+                .groupBy(sql`DATE(${click.time})`)
+                .orderBy(sql`DATE(${click.time})`);
+                return NextResponse.json({
+                    result
+                })
+            }
+            catch{
+                return NextResponse.json({
+                    message:"Internal Server Error"
+                },{status:500})
+            }
 }

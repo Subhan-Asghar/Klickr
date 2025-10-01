@@ -13,7 +13,7 @@ const Dash_Detail = ({ title, totalLink }: Props) => {
       </CardHeader>
       <CardContent >
       <div className="flex justify-between px-2 pt-2">
-                Links
+                Total Links
                 <p>{totalLink}</p>
             </div>
       </CardContent>
