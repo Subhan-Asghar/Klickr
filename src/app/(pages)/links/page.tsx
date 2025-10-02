@@ -6,16 +6,16 @@ import { useLinkList } from "@/hooks/useLinkList";
 const Link = () => {
    const {isLoading}=useLinkList()
 
-   if(isLoading){
-    return <>
-    <div className="flex justify-center items-center h-[90vh] mt-1 rounded-lg border shadow-lg bg-background">
-    <Spinner variant="circle"></Spinner>
-    </div>
-    </>
-  }
+     if (isLoading) {
+       return (
+         <div className="flex justify-center items-center h-full rounded-lg border shadow-lg bg-background">
+           <Spinner variant="circle"></Spinner>
+         </div>
+       );
+     }
 
   return (
-<div className="flex flex-col h-[90vh] bg-background mt-1 rounded-lg border shadow-lg">
+<div className="flex h-full bg-background  rounded-lg border shadow-lg overflow-y-auto">
     <ListLink  />
   </div>
 
