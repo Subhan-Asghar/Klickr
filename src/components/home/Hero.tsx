@@ -6,7 +6,7 @@ import Home_Navbar from './Home_Navbar';
 import { PointerHighlight } from '../ui/pointer-highlight';
 
 const Hero = () => {
-    const words=["Create", "Control","Analyze"]
+    const words=["Create","Control","Analyze"]
   return (
     <>
   
@@ -27,7 +27,7 @@ const Hero = () => {
             }}
             className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
           >
-             <FlipWords words={words}/>Link, Manage every single connecttion with
+             <FlipWords words={words}/>Link, Manage every single connection with
             <PointerHighlight
             rectangleClassName="bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-700 leading-loose"
             pointerClassName="text-blue-500 h-3 w-3"
