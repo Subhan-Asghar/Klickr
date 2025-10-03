@@ -9,6 +9,17 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
+  if(req.nextUrl.pathname.startsWith('/login') ||req.nextUrl.pathname.startsWith('/signup')  ){
+    try {
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      await jwtVerify(token, secret);
+
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    } catch {
+    }
+  }
+  
+
   try {
     const secret=new TextEncoder().encode(process.env.JWT_SECRET)
     const {payload} = await jwtVerify(token,secret)
@@ -31,6 +42,8 @@ export const config = {
     "/api/link/:path*",
     "/links/:path*",
     "/api/click/:path*",
-    "/api/dashboard/:path*"
+    "/api/dashboard/:path*",
+    "/login:path*",
+    "/signup:path*",
   ],
 };
