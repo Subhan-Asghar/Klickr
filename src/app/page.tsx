@@ -1,13 +1,13 @@
 "use client"
 import React from 'react'
 import Home_Navbar from '@/components/home/Home_Navbar';
-import { Globe } from '@/components/home/Globe';
+import Hero from "@/components/home/Hero"
 export default function Home() {
 
   return (
     <>
-    <Home_Navbar/>
-    <Globe/>
+    {/* <Home_Navbar /> */}
+<Hero></Hero>
     </>
   );
 }

@@ -64,7 +64,6 @@ export const Navbar = ({ children, className }: NavbarProps) => {
       setVisible(false);
     }
   });
-
   return (
     <motion.div
       ref={ref}

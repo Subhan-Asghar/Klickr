@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { MousePointerClick} from 'lucide-react';
 import { useState } from "react";
-import Link from "next/link";
+import ThemeButton from "../ui/theme-toggle";
+
 
 const Home_Navbar = () => {
   const navItems = [
@@ -34,11 +35,13 @@ const Home_Navbar = () => {
 
   return (
     <div className="relative w-full">
-      <Navbar>
-        <NavBody>
+      <Navbar className="fixed top-0" >
+        <NavBody visible={true}>
           <NavbarLogo name="Klickr" logo={<MousePointerClick className="text-primary " size={25}/>}/>
           <NavItems items={navItems} />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+          
+          <NavbarButton variant="secondary"><ThemeButton/></NavbarButton>
             <NavbarButton href="/login" variant="secondary">Login</NavbarButton>
           <NavbarButton href="/signup" variant="primary">Get Started</NavbarButton>
 
