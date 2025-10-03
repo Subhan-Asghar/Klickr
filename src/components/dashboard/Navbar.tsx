@@ -21,7 +21,7 @@ const Navbar = () => {
   const Logout=async()=>{
     try{
       await axios.delete("/api/auth/login")
-      router.push("/login")
+      router.push("/")
     }catch{
       toast.error("Something went wrong")
     }
