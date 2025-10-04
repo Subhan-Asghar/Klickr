@@ -55,7 +55,11 @@ const Dashboard = () => {
           <Num_Card title="Total Clicks" num={data.result[0].total} />
           <Num_Card title="Unique Visitors" num={data.result[0].unique} />
           <Country_Card title="Countries" data={data.countryStats} />
-          <Dash_Detail title="Details" totalLink={data.total_link} />
+          <Dash_Detail
+            title="Details"
+            totalLink={data.total_link}
+            average_click={data.average_click}
+          />
         </div>
 
         <div className="mb-12 mr-6">

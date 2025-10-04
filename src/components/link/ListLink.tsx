@@ -13,15 +13,51 @@ import {
 } from "@/components/ui/table";
 import DeleteLink from "./DeleteLink";
 import axios from "axios";
+import { Link2, Plus } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 const ListLink = () => {
-  const router=useRouter()
-  const { data: list,refetch } = useLinkList();
+  const router = useRouter();
+  const { data: list, refetch } = useLinkList();
+  // Create Link
+  const { mutateAsync: CreateLink } = useMutation({
+    mutationFn: async ({
+      title,
+      redirect,
+      active,
+    }: {
+      title: string;
+      redirect: string;
+      active: boolean;
+    }) => {
+      const res = await axios.post("/api/link", { title, redirect, active });
+      return res.data;
+    },
+  });
+
+  const create_submit = async (
+    title: string,
+    link: string,
+    active: boolean
+  ) => {
+    const data = {
+      title: title,
+      redirect: link,
+      active: active,
+    };
+    const res = CreateLink(data);
+    toast.promise(res, {
+      loading: "Creating the link...",
+      success: "Linink created!",
+      error: "Failed to create link",
+    });
+    const result = await res;
+    return result.link;
+  };
 
   // Edit Function
-
   const { mutateAsync: EditLink } = useMutation({
     mutationFn: async ({
       title,
@@ -61,30 +97,26 @@ const ListLink = () => {
     return result.link;
   };
 
-  const DetailRouter=(id:string)=>{
-    const today=new Date()
-    const lastweek=new Date()
-  
-    lastweek.setDate(today.getDate() -6)
-    const start = new Date(Date.UTC(
-      lastweek.getFullYear(),
-      lastweek.getMonth(),
-      lastweek.getDate()
-    )).toISOString()
-  
-    const end = new Date(Date.UTC(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate()
-    )).toISOString()
-  
-    router.push(`/details?id=${id}&start=${start}&end=${end}`)
-  }
+  const DetailRouter = (id: string) => {
+    const today = new Date();
+    const lastweek = new Date();
+
+    lastweek.setDate(today.getDate() - 6);
+    const start = new Date(
+      Date.UTC(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate())
+    ).toISOString();
+
+    const end = new Date(
+      Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+    ).toISOString();
+
+    router.push(`/details?id=${id}&start=${start}&end=${end}`);
+  };
 
   return (
     <div className="flex-1 p-2 overflow-auto ">
       {list?.length ? (
-        <Table >
+        <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Status</TableHead>
@@ -109,7 +141,9 @@ const ListLink = () => {
                     </Badge>
                   )}
                 </TableCell>
-                <TableCell  onClick={()=>DetailRouter(item.id)}>{item.title}</TableCell>
+                <TableCell onClick={() => DetailRouter(item.id)}>
+                  {item.title}
+                </TableCell>
                 <TableCell>
                   <a
                     className="text-sm hover:underline bg-muted relative rounded px-[0.3rem] py-[0.2rem] text-muted-foreground  "
@@ -145,8 +179,26 @@ const ListLink = () => {
           </TableBody>
         </Table>
       ) : (
-        <div className="flex items-center justify-center h-32 text-muted-foreground text-sm">
-          No links found
+        <div className="flex items-center flex-col justify-center h-full">
+          <span className="bg-sidebar h-10 w-10 items-center rounded-lg flex justify-center outline-1">
+            <Link2 size={24}></Link2>
+          </span>
+          <h3 className="pt-3 text-lg font-semibold">No Link added</h3>
+          <p className="pb-3 text-sm text-muted-foreground">
+            Manage every single connection with Klickr.
+          </p>
+          <LinkDialog
+            trigger={
+              <Button variant={"default"}>
+                <Plus /> Create Link
+              </Button>
+            }
+            button_text={"Create"}
+            description="Create a new link that you can modify later"
+            Dialog_title="Create Link"
+            submit={create_submit}
+            refetch={refetch}
+          />
         </div>
       )}
     </div>

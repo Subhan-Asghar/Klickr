@@ -25,36 +25,45 @@ export async function GET(req: NextRequest) {
     .where(eq(link.user_id, user_id))
     .groupBy(click.country);
 
-    const total_link=(await db.select().from(link).where(eq(link.user_id,user_id))).length
-  return NextResponse.json({ result, countryStats,
-    total_link
-   });
+  const total_link = (
+    await db.select().from(link).where(eq(link.user_id, user_id))
+  ).length;
+  let average_click = 0;
+  if (total_link) {
+    average_click = Math.floor(result[0].total / total_link);
+  }
+  return NextResponse.json({ result, countryStats, total_link, average_click });
 }
 
-
-export async function POST(req:NextRequest){
-    try{
-         const {start,end}=await req.json()
-                const user_id=Number(req.headers.get("user-id"))
-                const result = await db.select({
-                    date:sql`DATE(${click.time})`,
-                    total:sql<number>`COUNT(*)`
-                }).from(link)
-                .innerJoin(click,eq(click.link_id,link.id
-                ))
-                .where(and(eq(link.user_id,user_id),
-                gte(click.time, new Date(start)),  
-                lte(click.time, new Date(end))   
-            ))
-                .groupBy(sql`DATE(${click.time})`)
-                .orderBy(sql`DATE(${click.time})`);
-                return NextResponse.json({
-                    result
-                })
-            }
-            catch{
-                return NextResponse.json({
-                    message:"Internal Server Error"
-                },{status:500})
-            }
+export async function POST(req: NextRequest) {
+  try {
+    const { start, end } = await req.json();
+    const user_id = Number(req.headers.get("user-id"));
+    const result = await db
+      .select({
+        date: sql`DATE(${click.time})`,
+        total: sql<number>`COUNT(*)`,
+      })
+      .from(link)
+      .innerJoin(click, eq(click.link_id, link.id))
+      .where(
+        and(
+          eq(link.user_id, user_id),
+          gte(click.time, new Date(start)),
+          lte(click.time, new Date(end))
+        )
+      )
+      .groupBy(sql`DATE(${click.time})`)
+      .orderBy(sql`DATE(${click.time})`);
+    return NextResponse.json({
+      result,
+    });
+  } catch {
+    return NextResponse.json(
+      {
+        message: "Internal Server Error",
+      },
+      { status: 500 }
+    );
+  }
 }
