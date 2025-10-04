@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-
+import { NumberTicker } from '../ui/number-ticker'
 type Props = {
   title: string,
   num:number
@@ -18,9 +18,10 @@ const Num_Card = ({ title,num}: Props) => {
         <CardTitle className="font-semibold">{title}</CardTitle>
       </CardHeader>
       <CardContent className='h-full flex justify-center'>
-        <div className="text-6xl font-extrabold tracking-tight ">
-        {num}
-        </div>
+        <NumberTicker className="text-6xl font-extrabold tracking-tight "
+        value={num}
+        />
+      
     
       </CardContent>
     </Card>
