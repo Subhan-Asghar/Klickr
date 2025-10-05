@@ -40,13 +40,13 @@ export function Beam({
 
   return (
     <>
-     <h1 className="scroll-m-20 p-4 text-center text-4xl font-extrabold tracking-tight text-balance ">
+     <h1 className="scroll-m-20 pt-4 text-center text-4xl font-extrabold tracking-tight text-balance ">
      Own Every Link You Share
          </h1>
 
     <div
       className={cn(
-        "relative flex h-[500px] w-full items-center justify-center overflow-hidden p-10",
+        "relative flex w-full items-center justify-center overflow-hidden p-10",
         className
       )}
       ref={containerRef}

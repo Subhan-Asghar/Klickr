@@ -6,13 +6,14 @@ import Home_Navbar from './Home_Navbar';
 import { PointerHighlight } from '../ui/pointer-highlight';
 import { Beam } from './Beam';
 import { Review } from './Review';
+import Footer from "./Footer"
 const Hero = () => {
     const words=["Create","Control","Analyze"]
   return (
     <>
   
-        <HeroHighlight containerClassName='h-screen' >
-        <Home_Navbar/>
+        <HeroHighlight  containerClassName='h-screen' >
+        <Home_Navbar />
           <motion.h1
             initial={{
               opacity: 0,
@@ -40,6 +41,7 @@ const Hero = () => {
         </HeroHighlight>
 <Review/>
             <Beam/>
+            <Footer/>
         </>
   )
 }
