@@ -5,6 +5,7 @@ import { FlipWords } from "../ui/flip-words";
 import Home_Navbar from './Home_Navbar';
 import { PointerHighlight } from '../ui/pointer-highlight';
 import { Beam } from './Beam';
+import { Review } from './Review';
 const Hero = () => {
     const words=["Create","Control","Analyze"]
   return (
@@ -37,6 +38,7 @@ const Hero = () => {
           </PointerHighlight>
           </motion.h1>
         </HeroHighlight>
+<Review/>
             <Beam/>
         </>
   )
