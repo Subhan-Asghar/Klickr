@@ -1,6 +1,5 @@
 import React from "react";
-import { FloatingDock } from "@/components/ui/floating-dock";
-import { House,UserPlus,Github,Linkedin ,LayoutDashboard ,Twitter } from 'lucide-react';
+import { House,Github,Linkedin,Twitter } from 'lucide-react';
  
 
 const Footer = () => {
@@ -13,20 +12,6 @@ const Footer = () => {
           href: "#home",
         },
      
-        {
-          title: "Dashboard",
-          icon: (
-            <LayoutDashboard className="h-full w-full" />
-          ),
-          href: "/dashboard",
-        },
-        {
-          title: "User",
-          icon: (
-            <UserPlus className="h-full w-full" />
-          ),
-          href: "/login",
-        },
         {
           title: "Linkedin",
           icon: (
@@ -62,7 +47,14 @@ const Footer = () => {
     </div>
 
     <div className="flex flex-col items-center justify-center w-full">
-      <FloatingDock mobileClassName="translate-y-20" items={links} />
+      <div className="flex flex-row gap-4 justify-center items-center ">
+        {    links.map((link,i)=>(
+          <div key={i} className="cursor-pointer" >
+              {link.icon}
+          </div>
+))}
+    
+      </div>
       <div className="mt-8 text-xs text-muted-foreground">
       © {new Date().getFullYear()} Klickr. All rights reserved.
     </div>

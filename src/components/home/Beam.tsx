@@ -54,12 +54,12 @@ export function Beam({
       <div className="flex h-[500px] size-full max-w-lg flex-row items-stretch justify-between gap-10">
         <div className="flex flex-col justify-center">
           <Circle ref={div7Ref}>
-          <MousePointerClick className="text-secondary"/>
+          <MousePointerClick className="text-black"/>
           </Circle>
         </div>
         <div className="flex flex-col justify-center">
           <Circle ref={div6Ref} className="size-16">
-          <Link2 className="text-secondary"/>
+          <Link2 className="text-black"/>
           </Circle>
         </div>
         <div className="flex flex-col justify-center gap-2">
