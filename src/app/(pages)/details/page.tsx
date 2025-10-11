@@ -21,7 +21,7 @@ const Details = () => {
     );
   }
   return (
-    <div className="flex flex-col h-full justify-between bg-background  rounded-lg border shadow-lg overflow-y-auto">
+    <div className="flex flex-col h-full justify-between bg-background  rounded-lg border shadow-lg ">
       <div className="flex justify-center flex-wrap gap-6 w-full p-4">
         <Num_Card title="Total Clicks" num={data.totalClicks} />
         <Num_Card title="Unique Visitors" num={data.uniqueCount} />

@@ -51,7 +51,7 @@ export function Beam({
       )}
       ref={containerRef}
     >
-      <div className="flex size-full max-w-lg flex-row items-stretch justify-between gap-10">
+      <div className="flex h-[500px] size-full max-w-lg flex-row items-stretch justify-between gap-10">
         <div className="flex flex-col justify-center">
           <Circle ref={div7Ref}>
           <MousePointerClick className="text-secondary"/>

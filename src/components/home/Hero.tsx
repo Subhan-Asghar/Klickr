@@ -39,8 +39,8 @@ const Hero = () => {
           </PointerHighlight>
           </motion.h1>
         </HeroHighlight>
-<Review/>
             <Beam/>
+            <Review/>
             <Footer/>
         </>
   )
