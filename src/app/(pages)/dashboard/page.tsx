@@ -14,7 +14,7 @@ const Dashboard = () => {
   const router = useRouter();
   const { data, isLoading } = useDashboard();
   const { data: graph_data, start, end } = useDash_Graph();
-  console.log(graph_data);
+
   React.useEffect(() => {
     const func = () => {
       const today = new Date();

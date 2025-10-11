@@ -61,11 +61,6 @@ const Graph = ({start,end,data,}:Props) => {
     
       />
 
-      {value && (
-        <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-          {value?.x}: {value?.y}
-        </p>
-      )}
      
       </>
 
