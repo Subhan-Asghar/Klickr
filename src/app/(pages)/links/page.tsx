@@ -15,7 +15,7 @@ const Link = () => {
      }
 
   return (
-<div className="flex h-full bg-background  rounded-lg border shadow-lg ">
+<div className="flex flex-col h-full justify-between bg-background  rounded-lg border shadow-lg overflow-y-auto">
     <ListLink  />
   </div>
 

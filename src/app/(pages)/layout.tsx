@@ -33,7 +33,7 @@ export default async function DashboardLayout({
         <AppSidebar />
         <div className="flex flex-col h-screen flex-1 gap-1 ">
         <Navbar/>
-        <main className="flex-1 ">{children}</main>
+        <main className="flex-1 overflow-auto ">{children}</main>
         </div>
       </SidebarProvider>
     </div>
