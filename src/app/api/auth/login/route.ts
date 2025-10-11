@@ -37,7 +37,6 @@ export async function POST(req: NextRequest) {
       { expiresIn: "7d" }
     );
 
-
     const res = NextResponse.json({
       success: true,
     });
@@ -59,18 +58,17 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function DELETE(){
-  try{
-    const res=NextResponse.json({message:"User Logout"})
-    res.cookies.set("jwt","",{
-      httpOnly:true,
-      maxAge:0,
-      path:"/"
-    })
-  
-    return res
-  }catch{
-    return NextResponse.json({message:"Internal Server Error"})
-  }
+export async function DELETE() {
+  try {
+    const res = NextResponse.json({ message: "User Logout" });
+    res.cookies.set("jwt", "", {
+      httpOnly: true,
+      maxAge: 0,
+      path: "/",
+    });
 
+    return res;
+  } catch {
+    return NextResponse.json({ message: "Internal Server Error" });
+  }
 }

@@ -35,9 +35,11 @@ const Login = () => {
       setDisable(true)
       await axios.post("/api/auth/login", data).
       then(()=>route.push('/dashboard'))
-    } catch {
+    } catch(err:any) {
       setDisable(false)
-      toast.error("Something went wrong")
+      const message=err.response.data.message
+      toast.error(message)
+    
     }
   }
 
