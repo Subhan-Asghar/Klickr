@@ -41,7 +41,7 @@ const Home_Navbar = () => {
           <NavItems items={navItems} />
           <div className="flex items-center gap-2">
           
-          <NavbarButton variant="secondary"><ThemeButton/></NavbarButton>
+          <NavbarButton className="w-5" variant="secondary"><ThemeButton/></NavbarButton>
             <NavbarButton href="/login" variant="secondary">Login</NavbarButton>
           <NavbarButton href="/signup" variant="primary">Get Started</NavbarButton>
 

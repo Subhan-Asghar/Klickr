@@ -1,5 +1,7 @@
 import React from "react";
 import { House,Github,Linkedin,Twitter } from 'lucide-react';
+import { Button } from "../ui/button";
+import Link from "next/link";
  
 
 const Footer = () => {
@@ -47,11 +49,14 @@ const Footer = () => {
     </div>
 
     <div className="flex flex-col items-center justify-center w-full">
-      <div className="flex flex-row gap-4 justify-center items-center ">
+      <div className="flex flex-row justify-center items-center ">
         {    links.map((link,i)=>(
-          <div key={i} className="cursor-pointer" >
+          <Link key={i} href={link.href}>
+          <Button variant={"ghost"} size={"icon"} className="cursor-pointer " >
               {link.icon}
-          </div>
+          </Button>
+          </Link>
+          
 ))}
     
       </div>

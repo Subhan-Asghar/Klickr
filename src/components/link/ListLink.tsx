@@ -114,7 +114,7 @@ const ListLink = () => {
   };
 
   return (
-    <div className="flex-1 p-2 overflow-auto ">
+    <div className="flex-1 p-2 ">
       {list?.length ? (
         <Table>
           <TableHeader>
