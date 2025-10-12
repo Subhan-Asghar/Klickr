@@ -58,7 +58,7 @@ const Detail_Card = ({ title,data }: Props) => {
     const res = EditLink(data);
     toast.promise(res, {
       loading: "Updating the link...",
-      success: "Linink Updated!",
+      success: "Link Updated!",
       error: "Failed to edit link",
     });
     const result = await res;

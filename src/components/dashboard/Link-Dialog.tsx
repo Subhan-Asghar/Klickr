@@ -36,6 +36,7 @@ type Props={
 export function LinkDialog({Dialog_title ,description,button_text,default_value,submit,trigger,id,refetch}:Props) {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
+  const [disable, setDisable] = useState<boolean>(false);
     const [active, setActive] = useState(true);
     const [open,setOpen]=useState<boolean>(false)
     const [urlopen,setUrlOpen]=useState<boolean>(false)
@@ -52,6 +53,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
     const handleSubmit =async(e: React.FormEvent)=>{
       try{
         e.preventDefault() 
+        setDisable(true)
         const result=await submit(title,link,active,id)
         if(result){
           setOpen(false)
@@ -60,9 +62,11 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
         
         }
         refetch?.()
+        setDisable(false)
 
       }catch{
         toast.error("Something went wrong")
+        setDisable(false)
       }
        
     }
@@ -120,7 +124,7 @@ export function LinkDialog({Dialog_title ,description,button_text,default_value,
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DialogClose>
-              <Button type="submit">{button_text}</Button>
+              <Button disabled={disable} type="submit">{button_text}</Button>
             </DialogFooter>
           </form>
         

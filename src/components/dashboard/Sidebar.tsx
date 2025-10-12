@@ -39,7 +39,7 @@ import { useLinkList } from "@/hooks/useLinkList";
       const res=CreateLink(data)
       toast.promise(res, {
         loading: "Creating the link...",
-        success: "Linink created!",
+        success: "Link created!",
         error: "Failed to create link"
       })
      const result=await res

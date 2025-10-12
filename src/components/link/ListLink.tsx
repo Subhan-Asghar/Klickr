@@ -50,7 +50,7 @@ const ListLink = () => {
     const res = CreateLink(data);
     toast.promise(res, {
       loading: "Creating the link...",
-      success: "Linink created!",
+      success: "Link created!",
       error: "Failed to create link",
     });
     const result = await res;
@@ -90,7 +90,7 @@ const ListLink = () => {
     const res = EditLink(data);
     toast.promise(res, {
       loading: "Updating the link...",
-      success: "Linink Updated!",
+      success: "Link Updated!",
       error: "Failed to edit link",
     });
     const result = await res;
@@ -179,7 +179,7 @@ const ListLink = () => {
           </TableBody>
         </Table>
       ) : (
-        <div className="flex items-center flex-col justify-center h-full">
+        <div className="flex items-center flex-col justify-center h-full w-full">
           <span className="bg-sidebar h-10 w-10 items-center rounded-lg flex justify-center outline-1">
             <Link2 size={24}></Link2>
           </span>
