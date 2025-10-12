@@ -114,9 +114,9 @@ const ListLink = () => {
   };
 
   return (
-    <div className=" p-2 overflow-auto">
+    <>
       {list?.length ? (
-        <Table className="overflow-auto">
+        <Table >
           <TableHeader>
             <TableRow>
               <TableHead>Status</TableHead>
@@ -201,7 +201,7 @@ const ListLink = () => {
           />
         </div>
       )}
-    </div>
+    </>
   );
 };
 

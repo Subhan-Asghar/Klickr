@@ -31,9 +31,9 @@ export default async function DashboardLayout({
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <SidebarProvider defaultOpen={defaultOpen}>
         <AppSidebar />
-        <div className="flex flex-col h-screen flex-1 gap-1 ">
+        <div className="flex flex-col h-screen w-full gap-1 overflow-hidden">
         <Navbar/>
-        <main className="flex-1 overflow-auto ">{children}</main>
+        <main className=" flex-1 overflow-auto">{children}</main>
         </div>
       </SidebarProvider>
     </div>
